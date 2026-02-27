@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Assistant</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-title">
+        <svg class="logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <h1>Prompt Assistant</h1>
+      </div>
+      <div class="header-actions">
+        <button id="btn-settings" class="icon-btn" title="设置">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+        <button id="btn-add" class="icon-btn primary" title="添加 Prompt">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" id="search-input" placeholder="搜索 Prompt..." autocomplete="off">
+      <button id="btn-clear-search" class="clear-btn hidden">×</button>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <select id="category-filter" class="filter-select">
+        <option value="all">全部分类</option>
+      </select>
+      <button id="btn-favorites" class="filter-btn" title="仅显示收藏">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        <span>收藏</span>
+      </button>
+      <select id="sort-by" class="filter-select small">
+        <option value="updatedAt">最近更新</option>
+        <option value="useCount">使用频率</option>
+        <option value="name">名称</option>
+        <option value="createdAt">创建时间</option>
+      </select>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-bar">
+      <span id="stats-text">加载中...</span>
+    </div>
+
+    <!-- Prompt List -->
+    <div id="prompt-list" class="prompt-list">
+      <!-- 动态生成 -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="empty-state hidden">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+        <polyline points="10 9 9 9 8 9"/>
+      </svg>
+      <p>没有找到 Prompt</p>
+      <button id="btn-create-first" class="btn-primary">创建第一个 Prompt</button>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+      <span id="toast-message"></span>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="edit-modal" class="modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">添加 Prompt</h2>
+        <button class="modal-close">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="edit-name">名称 *</label>
+          <input type="text" id="edit-name" placeholder="给 Prompt 起个名字，例如：代码解释">
+        </div>
+        <div class="form-group">
+          <label for="edit-category">分类</label>
+          <select id="edit-category">
+            <!-- 动态生成 -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="edit-content">内容 *</label>
+          <textarea id="edit-content" rows="8" placeholder="输入 Prompt 内容...
+
+提示：使用 {{变量}} 来标记需要替换的部分，例如：
+请解释以下代码：
+```
+{{code}}
+```"></textarea>
+          <div class="form-hint">支持 Markdown 格式，使用 {{变量}} 标记可替换内容</div>
+        </div>
+        <div class="form-group">
+          <label for="edit-tags">标签（用逗号分隔）</label>
+          <input type="text" id="edit-tags" placeholder="例如：编程, 解释, 代码">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-cancel" class="btn-secondary">取消</button>
+        <button id="btn-save" class="btn-primary">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preview Modal -->
+  <div id="preview-modal" class="modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="preview-title">Prompt 预览</h2>
+        <div class="modal-header-actions">
+          <button id="btn-preview-favorite" class="icon-btn favorite-btn" title="收藏">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </button>
+          <button class="modal-close">×</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="preview-content" id="preview-content"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-copy" class="btn-secondary">复制到剪贴板</button>
+        <button id="btn-insert" class="btn-primary">插入到当前页面</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../common/storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

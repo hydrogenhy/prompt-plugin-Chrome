@@ -1,0 +1,92 @@
+{
+  "version": "1.0",
+  "description": "Prompt Assistant 默认 Prompt 配置",
+  "categories": [
+    {
+      "name": "通用",
+      "color": "#6366f1"
+    },
+    {
+      "name": "编程",
+      "color": "#10b981"
+    },
+    {
+      "name": "写作",
+      "color": "#f59e0b"
+    },
+    {
+      "name": "翻译",
+      "color": "#3b82f6"
+    },
+    {
+      "name": "分析",
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "创意",
+      "color": "#ec4899"
+    }
+  ],
+  "prompts": [
+    {
+      "name": "📝 文章总结",
+      "content": "请总结以下内容的主要内容，并用 bullet points 列出关键信息：\n\n{{text}}",
+      "category": "通用",
+      "tags": ["总结", "阅读"]
+    },
+    {
+      "name": "💻 代码解释",
+      "content": "请解释以下代码的工作原理，包括每一行代码的作用：\n\n```\n{{code}}\n```",
+      "category": "编程",
+      "tags": ["编程", "解释"]
+    },
+    {
+      "name": "🔧 代码优化",
+      "content": "请优化以下代码，使其更高效、更易读，并解释你的优化思路：\n\n```\n{{code}}\n```",
+      "category": "编程",
+      "tags": ["编程", "优化"]
+    },
+    {
+      "name": "🌐 中英翻译",
+      "content": "请将以下内容翻译成{{target}}，保持原意并确保语言自然流畅：\n\n{{text}}",
+      "category": "翻译",
+      "tags": ["翻译"]
+    },
+    {
+      "name": "✍️ 写作助手",
+      "content": "请帮我改进以下文字，使其更加{{style}}，同时保持原意：\n\n{{text}}",
+      "category": "写作",
+      "tags": ["写作", "润色"]
+    },
+    {
+      "name": "🧠 头脑风暴",
+      "content": "请围绕 {{topic}} 进行头脑风暴，列出至少 10 个相关的想法、角度或建议。",
+      "category": "创意",
+      "tags": ["创意", "头脑风暴"]
+    },
+    {
+      "name": "📧 邮件撰写",
+      "content": "请帮我写一封{{tone}}的邮件，主题是：{{topic}}\n\n要点：\n- {{point1}}\n- {{point2}}",
+      "category": "写作",
+      "tags": ["邮件", "商务"]
+    },
+    {
+      "name": "🐛 Debug 助手",
+      "content": "我在运行以下代码时遇到了问题：\n\n错误信息：\n{{error}}\n\n代码：\n```\n{{code}}\n```\n\n请帮我找出问题并提供解决方案。",
+      "category": "编程",
+      "tags": ["调试", "错误"]
+    },
+    {
+      "name": "👨 美式证件照生成（男）",
+      "content": "American corporate professional headshotof the same person from the uploaded portrait, preserving facial identity andnatural skin tone. Half-body, centered composition, petitemale proportions (**{{Height}} cm, {{Weight}} kg**, natural arm span ratio). Professional suite. Head straight facingcamera, relaxed confident natural smile,bright eyes. Blue textured studio background, shallowdepth of field. Soft natural studio lighting, ultra HD,realistic skin texture, sharp facial focus.Fortune 500 corporate portrait, modern consulting firm style.85mm portrait lens, full-frame DSLRrealism, f/2.0 depth of field.",
+      "category": "创意",
+      "tags": ["证件照"]
+    },
+    {
+      "name": "👩 美式证件照生成（女）",
+      "content": "Convert the uploaded portrait into an American-style professional headshot in corporate photography style, while preserving the original person’s facial features and identity. Requirements: half-body portrait, blue textured studio background, soft natural studio lighting, high-definition clarity, realistic skin tones, clean and elegant composition. The person should wear a sleeveless black dress, minimalist and elegant design, modern and professional style, paired with simple gold jewelry . Expression should be relaxed, confident, and natural with bright, engaging eyes and a genuine smile. Keep sharp focus on the face, with a slightly blurred background for depth, overall polished and professional.",
+      "category": "创意",
+      "tags": ["证件照"]
+    }
+  ]
+}

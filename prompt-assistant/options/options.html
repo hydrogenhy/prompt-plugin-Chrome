@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Assistant - 设置</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <svg class="logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <h1>Prompt Assistant</h1>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#prompts" class="nav-item active" data-section="prompts">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+          Prompt 管理
+        </a>
+        <a href="#categories" class="nav-item" data-section="categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+          </svg>
+          分类管理
+        </a>
+        <a href="#import-export" class="nav-item" data-section="import-export">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          导入/导出
+        </a>
+        <a href="#settings" class="nav-item" data-section="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          设置
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <p>v1.0.0</p>
+        <a href="https://github.com" target="_blank">GitHub</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Prompts Section -->
+      <section id="section-prompts" class="section active">
+        <div class="section-header">
+          <h2>Prompt 管理</h2>
+          <div class="header-actions">
+            <button id="btn-batch-import" class="btn-secondary">批量导入</button>
+            <button id="btn-add-prompt" class="btn-primary">+ 新建 Prompt</button>
+          </div>
+        </div>
+        
+        <div class="toolbar">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" id="prompts-search" placeholder="搜索 Prompt...">
+          </div>
+          <select id="prompts-category-filter" class="filter-select">
+            <option value="all">全部分类</option>
+          </select>
+          <select id="prompts-sort" class="filter-select">
+            <option value="updatedAt">最近更新</option>
+            <option value="createdAt">创建时间</option>
+            <option value="name">名称</option>
+            <option value="useCount">使用次数</option>
+          </select>
+        </div>
+
+        <div id="prompts-table-container" class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th class="col-favorite">⭐</th>
+                <th class="col-name">名称</th>
+                <th class="col-category">分类</th>
+                <th class="col-tags">标签</th>
+                <th class="col-stats">使用/更新</th>
+                <th class="col-actions">操作</th>
+              </tr>
+            </thead>
+            <tbody id="prompts-tbody">
+              <!-- 动态生成 -->
+            </tbody>
+          </table>
+        </div>
+
+        <div id="prompts-empty" class="empty-state hidden">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+          <p>还没有 Prompt，点击右上角按钮创建</p>
+        </div>
+      </section>
+
+      <!-- Categories Section -->
+      <section id="section-categories" class="section">
+        <div class="section-header">
+          <h2>分类管理</h2>
+          <button id="btn-add-category" class="btn-primary">+ 新建分类</button>
+        </div>
+        <div id="category-list" class="category-list">
+          <!-- 动态生成分类列表 -->
+        </div>
+      </section>
+
+      <!-- Import/Export Section -->
+      <section id="section-import-export" class="section">
+        <div class="section-header">
+          <h2>导入/导出</h2>
+        </div>
+
+        <div class="card-grid">
+          <!-- Export Card -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon export">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+              </div>
+              <h3>导出数据</h3>
+            </div>
+            <p class="card-desc">将所有 Prompt 和分类导出为 JSON 文件，用于备份或分享。</p>
+            <button id="btn-export" class="btn-primary">导出 JSON</button>
+          </div>
+
+          <!-- Import Card -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-icon import">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+              </div>
+              <h3>导入数据</h3>
+            </div>
+            <p class="card-desc">从 JSON 文件导入 Prompt，可选择合并或覆盖现有数据。</p>
+            <div class="import-options">
+              <label class="radio-label">
+                <input type="radio" name="import-mode" value="merge" checked>
+                <span>合并（保留现有数据）</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="import-mode" value="replace">
+                <span>覆盖（删除现有数据）</span>
+              </label>
+            </div>
+            <div class="file-input-wrapper">
+              <input type="file" id="import-file" accept=".json">
+              <label for="import-file" class="btn-primary">选择文件导入</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Import Preview -->
+        <div id="import-preview" class="import-preview hidden">
+          <h3>导入预览</h3>
+          <div id="import-preview-content" class="import-preview-content"></div>
+          <div class="import-actions">
+            <button id="btn-cancel-import" class="btn-secondary">取消</button>
+            <button id="btn-confirm-import" class="btn-primary">确认导入</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings Section -->
+      <section id="section-settings" class="section">
+        <div class="section-header">
+          <h2>设置</h2>
+        </div>
+
+        <div class="settings-list">
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>插入模式</h4>
+              <p>选择 Prompt 插入到输入框的方式</p>
+            </div>
+            <select id="setting-insert-mode" class="setting-select">
+              <option value="append">追加（添加到现有内容后面）</option>
+              <option value="replace">替换（覆盖现有内容）</option>
+            </select>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>自动聚焦</h4>
+              <p>插入 Prompt 后自动聚焦到输入框</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="setting-auto-focus" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>显示分类</h4>
+              <p>在 Prompt 列表中显示分类标签</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="setting-show-categories" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-item">
+            <div class="setting-info">
+              <h4>快捷键</h4>
+              <p id="shortcut-display">当前快捷键: Alt+P</p>
+            </div>
+            <button id="btn-shortcut-settings" class="btn-secondary">自定义快捷键</button>
+          </div>
+
+          <div class="setting-item danger">
+            <div class="setting-info">
+              <h4>清除所有数据</h4>
+              <p>删除所有 Prompt 和分类，此操作不可恢复</p>
+            </div>
+            <button id="btn-clear-all" class="btn-danger">清除数据</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden">
+    <span id="toast-message"></span>
+  </div>
+
+  <!-- Prompt Edit Modal -->
+  <div id="prompt-modal" class="modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="prompt-modal-title">添加 Prompt</h3>
+        <button class="modal-close">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>名称 *</label>
+          <input type="text" id="prompt-edit-name" placeholder="给 Prompt 起个名字">
+        </div>
+        <div class="form-group">
+          <label>分类</label>
+          <select id="prompt-edit-category"></select>
+        </div>
+        <div class="form-group">
+          <label>内容 *</label>
+          <textarea id="prompt-edit-content" rows="8" placeholder="输入 Prompt 内容..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>标签（用逗号分隔）</label>
+          <input type="text" id="prompt-edit-tags" placeholder="例如：编程, 解释, 代码">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="prompt-btn-cancel" class="btn-secondary">取消</button>
+        <button id="prompt-btn-save" class="btn-primary">保存</button>
+      </div>
+    </div>
+  </div>
+
+
+    </div>
+  </div>
+
+  <!-- Batch Import Modal -->
+  <div id="batch-modal" class="modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-content large">
+      <div class="modal-header">
+        <h3>批量导入</h3>
+        <button class="modal-close">×</button>
+      </div>
+      <div class="modal-body">
+        <p class="help-text">每行一个 Prompt，格式：<code>名称 | 内容</code></p>
+        <p class="help-text">或使用分隔线 <code>---</code> 分隔多个字段</p>
+        <textarea id="batch-input" rows="15" placeholder="示例：
+
+代码解释
+---
+请解释以下代码的工作原理：
+```
+{{code}}
+```
+
+文章总结
+---
+请总结这篇文章的主要观点：
+{{text}}
+---
+也可以使用单行格式：
+文章翻译 | 请将以下内容翻译成{{target}}：{{text}}"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button id="batch-btn-cancel" class="btn-secondary">取消</button>
+        <button id="batch-btn-import" class="btn-primary">导入</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category Modal -->
+  <div id="category-modal" class="modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-content small">
+      <div class="modal-header">
+        <h3>新建分类</h3>
+        <button class="modal-close">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>名称 *</label>
+          <input type="text" id="category-name" placeholder="例如：编程、写作">
+        </div>
+        <div class="form-group">
+          <label>颜色</label>
+          <div class="color-picker">
+            <input type="color" id="category-color" value="#6366f1">
+            <input type="text" id="category-color-text" value="#6366f1" placeholder="#6366f1">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="category-btn-cancel" class="btn-secondary">取消</button>
+        <button id="category-btn-save" class="btn-primary">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../common/storage.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+{
+  "manifest_version": 3,
+  "name": "Prompt Assistant - 提示词助手",
+  "version": "1.0.0",
+  "description": "管理和快速插入常用 Prompt，支持 ChatGPT、Claude、Gemini 等主流 AI 平台",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "clipboardWrite"
+  ],
+  "host_permissions": [
+    "https://chat.openai.com/*",
+    "https://chatgpt.com/*",
+    "https://claude.ai/*",
+    "https://gemini.google.com/*",
+    "https://kimi.moonshot.cn/*",
+    "https://tongyi.aliyun.com/*",
+    "https://yiyan.baidu.com/*",
+    "https://xinghuo.xfyun.cn/*",
+    "https://www.doubao.com/*",
+    "https://chatglm.cn/*",
+    "https://kimi.com/*",
+    "https://poe.com/*",
+    "https://copilot.microsoft.com/*"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "options/options.html",
+  "background": {
+    "service_worker": "background/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chat.openai.com/*",
+        "https://chatgpt.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://kimi.moonshot.cn/*",
+        "https://tongyi.aliyun.com/*",
+        "https://yiyan.baidu.com/*",
+        "https://xinghuo.xfyun.cn/*",
+        "https://www.doubao.com/*",
+        "https://chatglm.cn/*",
+        "https://kimi.com/*",
+        "https://poe.com/*",
+        "https://copilot.microsoft.com/*"
+      ],
+      "js": ["content/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["data/default-prompts.json"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+P",
+        "mac": "Alt+P"
+      },
+      "description": "打开 Prompt Assistant"
+    }
+  }
+}
