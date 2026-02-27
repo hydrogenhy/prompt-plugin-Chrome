@@ -215,5 +215,5 @@ MIT License
 Thanks for Kimi Code. Made with ❤️ for AI enthusiasts
 
 ---
-![](fig\image.png)
-![](fig\image_setting.png)
+![](fig/image.png)
+![](fig/image_setting.png)
