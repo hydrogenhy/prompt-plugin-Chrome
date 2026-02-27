@@ -41,9 +41,9 @@
 
 1. **下载代码**
    ```bash
-   git clone <repository-url>
-   # 或直接下载 ZIP 并解压
+   git clone https://github.com/hydrogenhy/prompt-plugin-Chrome.git
    ```
+   或直接下载 ZIP 并解压
 
 2. **打开 Chrome 扩展管理页面**
    - 在 Chrome 地址栏输入 `chrome://extensions/`
