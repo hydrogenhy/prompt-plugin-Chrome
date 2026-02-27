@@ -311,9 +311,6 @@ function openPreviewModal(prompt) {
   }
   
   elements.previewModal.classList.remove('hidden');
-  
-  // 增加使用次数
-  StorageManager.incrementUseCount(prompt.id);
 }
 
 // 更新预览模态框中的收藏按钮状态
@@ -359,6 +356,8 @@ async function copyPreviewToClipboard() {
   
   try {
     await navigator.clipboard.writeText(prompt.content);
+    // 增加使用次数
+    await StorageManager.incrementUseCount(prompt.id);
     showToast('已复制到剪贴板');
   } catch (err) {
     showToast('复制失败', 'error');
